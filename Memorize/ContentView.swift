@@ -1,6 +1,7 @@
 //
 //  ContentView.swift
 //  Memorize
+//  This is my project based on Stanford's SwiftUI course on YouTube.
 //
 //  Created by Quenten Calvano on 11/12/21.
 //
