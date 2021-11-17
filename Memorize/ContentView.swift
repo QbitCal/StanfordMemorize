@@ -6,29 +6,38 @@
 //  Created by Quenten Calvano on 11/12/21.
 //
 //  Version: 11/15/2021
-//  Video: Lecture 2 -> 1:04:08
+//
+//  Video: Lecture 3 -> 18:54
+//  Stanford's Spring 2021 CS193p course:
+//  (Developing Applications for iOS)
+
 //
 
 import SwiftUI
 
 struct ContentView: View {
     var emojis = ["🐨", "🙈", "🐸", "🦁", "🐯", "🦄", "🦋", "🐛", "🦑", "🦆" , "🐳", "🦧", "🐕", "🐿", "🐈", "🐖", "🦭", "🪰", "🐞", "🐝", "🦢", "🦝" , "🦨", "🦓"]
-    @State var emojiCount = 6
+    @State var emojiCount = 20
     
     var body: some View {
         VStack {
-            HStack {
-                ForEach (emojis[0...emojiCount], id: \.self, content: { emoji in
-                    CardView(content: emoji)
-                })
+            ScrollView {
+                LazyVGrid(columns: [GridItem(.adaptive(minimum: 65))]){
+                    ForEach (emojis[0..<emojiCount], id: \.self, content: { emoji in
+                        CardView(content: emoji)
+                            .aspectRatio(2/3, contentMode: .fit)
+                    })
+                }
             }
             .padding(.horizontal)
             .foregroundColor(/*@START_MENU_TOKEN@*/.red/*@END_MENU_TOKEN@*/)
+            Spacer()
             HStack {
                 remove
                 Spacer()
                 add
             }
+            .font(.largeTitle)
             .padding(.horizontal)
         }
     }
@@ -41,7 +50,6 @@ struct ContentView: View {
         } label: {
             Image(systemName: "minus.circle")
                 .font(.largeTitle)
-                .foregroundColor(.red)
         }
     }
     //Create the add button to add more cards...
@@ -53,7 +61,6 @@ struct ContentView: View {
         } label: {
             Image(systemName: "plus.circle")
                 .font(.largeTitle)
-                .foregroundColor(.red)
         }
     }
 }
@@ -68,7 +75,7 @@ struct CardView: View {
             let shape = RoundedRectangle(cornerRadius: 20)
             if isFaceUp {
                 shape.fill().foregroundColor(.white)
-                shape.stroke(lineWidth: 3)
+                shape.strokeBorder(lineWidth: 3)
                 Text(content).font(.largeTitle)
             } else {
                 shape.fill()
@@ -81,15 +88,12 @@ struct CardView: View {
 }
 
 
-
-
-
-
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
             .preferredColorScheme(.dark)
         ContentView()
             .preferredColorScheme(.light)
+.previewInterfaceOrientation(.portrait)
     }
 }
